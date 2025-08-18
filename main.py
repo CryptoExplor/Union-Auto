@@ -1,7 +1,7 @@
 import asyncio
 from union import Union
 from ui import display_banner, logger_info, logger_success, logger_error
-from utils import generate_address, clear_terminal # Removed load_accounts as it's handled in Union class
+from utils import generate_address, clear_terminal
 
 async def main():
     try:
@@ -9,16 +9,21 @@ async def main():
         display_banner()
         logger_info("Starting Union Auto Swap")
         
-        # --- NEW: Select a single wallet ---
+        # --- UPDATED: Handle new selection options ---
         selected_account = bot.select_wallet()
-        if not selected_account:
-            logger_error("No wallet selected or configured. Exiting.")
+
+        if "is_all_wallets" in selected_account:
+            await bot.process_all_wallets()
             return
         
+        if "is_god_mode" in selected_account:
+            await bot.process_all_god_mode()
+            return
+            
         private_key = selected_account["PRIVATE_KEY"]
         xion_address = selected_account["XION_ADDRESS"]
         babylon_address = selected_account["BABYLON_ADDRESS"]
-        # --- END NEW ---
+        # --- END UPDATED ---
 
         option = bot.print_question()
         clear_terminal()
@@ -48,4 +53,3 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         logger_error("EXIT Union Testnet - BOT")
-
