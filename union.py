@@ -432,16 +432,16 @@ class Union:
                     pad_hex(0) +
                     pad_hex(20) +
                     encode_hex_as_string(address) +
-                    pad_hex(42) +
-                    encode_string_as_bytes(babylon_address, 64) +
+                    pad_hex(20) +
+                    encode_hex_as_string(address) +
                     pad_hex(20) +
                     encode_hex_as_string(self.BASE_TOKEN_ADDRESS) +
                     pad_hex(3) +
                     encode_string_as_bytes("SEI", 32) +
                     pad_hex(3) +
                     encode_string_as_bytes("Sei", 32) +
-                    pad_hex(62) +
-                    encode_hex_as_string(quote_token, 64)
+                    pad_hex(20) +
+                    encode_hex_as_string(quote_token)
                 )
 
             elif pair == "Sei Testnet to Babylon Testnet":
